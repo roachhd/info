@@ -1,0 +1,14 @@
+var menu=document.querySelector('.nav__list');var burger=document.querySelector('.burger');var doc=$(document);var l=$('.scrolly');var panel=$('.panel');var vh=$(window).height();var openMenu=function(){burger.classList.toggle('burger--active');menu.classList.toggle('nav__list--active');};panel.eq(0).find('.panel__content').addClass('panel__content--active');var scrollFx=function(){var ds=doc.scrollTop();var of=vh/4;for(var i=0;i<panel.length;i++){if(panel.eq(i).offset().top<ds+of){panel.eq(i).find('.panel__content').addClass('panel__content--active');}else{panel.eq(i).find('.panel__content').removeClass('panel__content--active')}}};var scrolly=function(e){e.preventDefault();var target=this.hash;var $target=$(target);$('html, body').stop().animate({'scrollTop':$target.offset().top},300,'swing',function(){window.location.hash=target;});}
+var init=function(){burger.addEventListener('click',openMenu,false);window.addEventListener('scroll',scrollFx,false);window.addEventListener('load',scrollFx,false);$('a[href^="#"]').on('click',scrolly);};doc.on('ready',init);$(document).ready(function(){if(navigator.userAgent.match(/Android/i)){window.scrollTo(0,1);}$('.b-intro').addClass('woo');setTimeout(function(){setTimeout(function(){setTimeout(function(){setTimeout(function(){setTimeout(function(){setTimeout(function(){$('.doon').addClass('zoomOutDown');},3000);$('.lefty').addClass('zoomOutLeft');$('.doon').fadeIn(500);},1000);$('.lefty').fadeIn(500);},1000);$('.nav').addClass('nonav');},2000);$('.subtitle').removeClass('gone');},50);$('.title').removeClass('gone');},1000);$(".burger").click(function(){$('.panel__wrapper').toggleClass('shifty');$('.shrink').toggleClass('shifty');});});var validateEmail=function(email){var re=/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;return re.test(email);}
+var formFunc=function(){var name=$(".form input[ name = name ]").val()
+var email=$(".form input[ name = email ]").val()
+var subject=$(".form input[ name = subject ]").val()
+var message=$(".form textarea").val()
+if(name===""){$(".nameErr").html("Please enter your name")
+$(".nameErr").parent().fadeIn("slow")
+return}else if(validateEmail(email)===false){$(".emailErr").html("Please enter a valid email address")
+$(".emailErr").parent().fadeIn("slow")
+return}else if(subject.length>0){window.location.replace("error.html");return}$.ajax({type:"POST",url:"php/send.php",data:{name:name,email:email,message:message},failure:function(data){$('.fields').fadeOut(1000,function(){$('.fail').fadeIn(1000)})},success:function(data){$('.fields').fadeOut(1000,function(){$("success h2").html(data)
+$('.success').fadeIn(1000)})}})}
+$("body").on("click",".form input[type=submit]",function(){formFunc()})
+$("body").on("focus",".form input",function(){$(".err").parent().fadeOut("slow")})
